@@ -20,27 +20,27 @@ connection.connect(function(err){
     }
     else {
         console.log('connected to database = ' + process.env._DATABASE)
-        connection.query('select * from city', function(err,result){
-            if(err){
-                console.log(err)
-            }
-            else {
-                console.log(result)
-            }
-        })
+        
     }
 })
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, './public/index.html'))
+//localhost:5000/bd
+app.get('/bd', function (req, res) {
+    connection.query('select * from city', function(err,result){
+        if(err){
+            console.log(err)
+        }
+        else {
+            res.json(result)
+        }
+    })
 })
 
  
-app.get('/:nome', function (req, res) {
-    res.send('Hello ' + req.params.nome)
+app.get('/', function (req, res) {
+    es.sendFile(path.join(__dirname, './public/index.html'))
   })
  
-const port = 3000
+const port = 5000
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
